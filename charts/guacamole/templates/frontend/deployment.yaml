@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "guacamole.fullname" . }}-frontend
+  labels: {{- include "guacamole.labels.frontend" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "guacamole.selectorLabels.frontend" . | nindent 6 }}
+  template:
+    metadata:
+      #
+      # Annotations to recreate deployment if config changes
+      #
+      annotations:
+        helm.sh/db-config-sha256: {{ .Values.database | toJson | sha256sum | trunc 32 }}
+      labels: {{- include "guacamole.selectorLabels.frontend" . | nindent 8 }}
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range $i, $name := .Values.imagePullSecrets }}
+        - name: {{ $name }}
+        {{- end }}
+      {{- end }}
+      serviceAccountName: {{ include "guacamole.serviceAccountName" . }}
+      volumes:
+        - name: scripts
+          configMap:
+            defaultMode: 0755
+            name: {{ include "guacamole.fullname" . }}-frontend
+      containers:
+        - name: guacamole
+          image: {{ printf "%s:%s" .Values.frontend.image.repository .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          command:
+            - /opt/guacamole-scripts/startup.sh
+          env:
+            # Script settings
+            - name: GUACAMOLE_INTERNAL_PROXIES
+              value: '.*'
+            # Guacamole daemon location
+            - name: GUACD_HOSTNAME
+              value: {{ include "guacamole.fullname" . }}-daemon.{{ .Release.Namespace }}.svc
+            - name: GUACD_PORT
+              value: {{ 4822 | quote }}
+            # Database credentials
+            - name: POSTGRES_HOSTNAME
+              value: {{ .Values.database.postgres.host }}
+            - name: POSTGRES_DATABASE
+              value: {{ .Values.database.postgres.database }}
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  {{- if not .Values.database.postgres.existingSecret }}
+                  name: {{ include "guacamole.fullname" . }}-frontend
+                  key: POSTGRES_USER
+                  {{- else }}
+                  name: {{ .Values.database.postgres.existingSecret }}
+                  key: {{ .Values.database.postgres.existingSecretUsernameKey }}
+                  {{- end }}
+                  optional: false
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  {{- if not .Values.database.postgres.existingSecret }}
+                  name: {{ include "guacamole.fullname" . }}-frontend
+                  key: POSTGRES_PASSWORD
+                  {{- else }}
+                  name: {{ .Values.database.postgres.existingSecret }}
+                  key: {{ .Values.database.postgres.existingSecretPasswordKey }}
+                  {{- end }}
+                  optional: false
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: scripts
+              mountPath: /opt/guacamole-scripts

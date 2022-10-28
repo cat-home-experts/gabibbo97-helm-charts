@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: "7bc1e72"
+description: OIDC authentication helper for Kubernetes
+name: kuberos
+version: 2.0.0
+deprecated: true

@@ -1,0 +1,81 @@
+{{- if .Values.hooks.upgradeDatabase.enabled }}
+{{- if not .Values.database.postgres.existingSecret }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "guacamole.fullname" . }}-frontend-upgrade-database
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+  labels: {{- include "guacamole.labels.hook" . | nindent 4 }}
+data:
+  PGPASSWORD: {{ .Values.database.postgres.password | b64enc | quote }}
+  PGUSER: {{ .Values.database.postgres.user | b64enc | quote }}
+{{- end }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "guacamole.fullname" . }}-frontend-upgrade-database
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+  labels: {{- include "guacamole.labels.hook" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      labels: {{- include "guacamole.labels.hook" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: scratchpad
+          emptyDir: {}
+      initContainers:
+        - name: create-sql-manifests
+          image: {{ printf "%s:%s" .Values.frontend.image.repository .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -ec
+          args:
+            - |-
+              if [ -f "/opt/guacamole/postgresql/schema/upgrade/upgrade-pre-{{ .Chart.AppVersion }}.sql" ]; then
+                cp "/opt/guacamole/postgresql/schema/upgrade/upgrade-pre-{{ .Chart.AppVersion }}.sql" /scratchpad/update.sql
+              fi
+          volumeMounts:
+            - name: scratchpad
+              mountPath: /scratchpad
+      containers:
+        - name: setup-database
+          image: {{ .Values.hooks.upgradeDatabase.postgresImage }}
+          imagePullPolicy: Always
+          command:
+            - /bin/sh
+            - -ec
+          args:
+            - |-
+              {{- if .Values.database.postgres.existingSecret }}
+              export PGUSER="${{ .Values.database.postgres.existingSecretUsernameKey }}"
+              export PGPASSWORD="${{ .Values.database.postgres.existingSecretPasswordKey }}"
+              {{- end }}
+              if [ -f "/scratchpad/update.sql" ]; then
+                psql \
+                  --file=/scratchpad/init.sql \
+                  --host={{ .Values.database.postgres.host }} \
+                  --dbname={{ .Values.database.postgres.database }} \
+                  --username=${PGUSER}
+              fi
+          envFrom:
+            - secretRef:
+                {{- if .Values.database.postgres.existingSecret }}
+                name: {{ .Values.database.postgres.existingSecret }}
+                {{- else }}
+                name: {{ include "guacamole.fullname" . }}-frontend-upgrade-database
+                {{- end }}
+          volumeMounts:
+            - name: scratchpad
+              mountPath: /scratchpad
+{{- end }}
