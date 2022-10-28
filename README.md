@@ -19,7 +19,7 @@ helm install my-<chart-name> gabibbo97/<chart-name>
 helm delete my-<chart-name>
 ```
 
-> Following this [deprecation notice](https://github.blog/changelog/2021-01-29-github-pages-will-stop-redirecting-pages-sites-from-github-com-after-april-15-2021/)), the gabibbo97's charts are moved under our org in this repo.
+> Following this [deprecation notice](https://github.blog/changelog/2021-01-29-github-pages-will-stop-redirecting-pages-sites-from-github-com-after-april-15-2021/), the gabibbo97's charts are moved under our org for rollback purpose on the data.cathex.io K8S cluster.
 
 ## Repository contents
 
