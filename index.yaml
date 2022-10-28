@@ -1,0 +1,185 @@
+apiVersion: v1
+entries:
+  389ds:
+  - apiVersion: v2
+    appVersion: fedora-32
+    created: "2022-10-28T19:33:03.662210619Z"
+    description: 389 Directory Server
+    digest: 32926b66d93484aa6f110454246ec6fba5b1cd15398c83d4a2ed75fb41575dda
+    name: 389ds
+    type: application
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/389ds-0.1.0/389ds-0.1.0.tgz
+    version: 0.1.0
+  dex:
+  - apiVersion: v2
+    appVersion: v2.28.1
+    created: "2022-10-28T19:33:03.81644238Z"
+    description: OpenID Connect Identity (OIDC) and OAuth 2.0 Provider with Pluggable
+      Connectors
+    digest: 2973b20a8fdfa9251ee21a9ca25bbf0990486809befa21cde106793adcd23d27
+    home: https://github.com/dexidp/dex
+    icon: https://raw.githubusercontent.com/dexidp/dex/master/Documentation/logos/dex-horizontal-color.png
+    keywords:
+    - authentication
+    - idp
+    - oidc
+    maintainers:
+    - email: gabibbo97@gmail.com
+      name: gabibbo97
+    name: dex
+    type: application
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/dex-4.0.4/dex-4.0.4.tgz
+    version: 4.0.4
+  fcgi-nginx-frontend:
+  - apiVersion: v2
+    appVersion: 1.17.8
+    created: "2022-10-28T19:33:03.995374095Z"
+    deprecated: true
+    description: Expose a FastCGI application
+    digest: f49342e8438a1a6e253b975e38de12217c9bd2302711647db9e18a59df74460b
+    name: fcgi-nginx-frontend
+    type: application
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/fcgi-nginx-frontend-0.2.0/fcgi-nginx-frontend-0.2.0.tgz
+    version: 0.2.0
+  gangway:
+  - apiVersion: v2
+    appVersion: v3.2.0
+    created: "2022-10-28T19:33:04.13905059Z"
+    description: An application that can be used to easily enable authentication flows
+      via OIDC for a kubernetes cluster.
+    digest: e2f82f05e7b862230a39c7f2fabfaa5e4c8945746e8179453eb06b7dd826c6d4
+    home: https://github.com/heptiolabs/gangway
+    keywords:
+    - authentication
+    - k8s
+    - oidc
+    maintainers:
+    - email: gabibbo97@gmail.com
+      name: gabibbo97
+    name: gangway
+    type: application
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/gangway-1.1.0/gangway-1.1.0.tgz
+    version: 1.1.0
+  guacamole:
+  - apiVersion: v2
+    appVersion: 1.3.0
+    created: "2022-10-28T19:33:04.299003387Z"
+    description: A remote desktop frontend
+    digest: 4b8fb3216de5482a0128f6087c44a7e830edad17bd5bfaa7d0e59d33308b912f
+    name: guacamole
+    type: application
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/guacamole-0.3.0/guacamole-0.3.0.tgz
+    version: 0.3.0
+  imagepullsecrets:
+  - apiVersion: v1
+    created: "2022-10-28T19:33:04.463307511Z"
+    description: Declarative configuration for imagepullsecrets
+    digest: e076a024d589fff6ec2a2dc297f7ae0d33af7112b2d907a9e80261a2e85619ac
+    keywords:
+    - authentication
+    - secrets
+    - docker-registry
+    - imagepullsecrets
+    maintainers:
+    - email: gabibbo97@gmail.com
+      name: gabibbo97
+    name: imagepullsecrets
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/imagepullsecrets-3.0.0/imagepullsecrets-3.0.0.tgz
+    version: 3.0.0
+  keycloak-gatekeeper:
+  - apiVersion: v2
+    appVersion: 10.0.0
+    created: "2022-10-28T19:33:04.637597096Z"
+    deprecated: true
+    description: Keycloak gatekeeper
+    digest: d7c3d594dc933e910033232c756fd85a0a0fc82db78ba47881fca86205c524cc
+    home: https://www.keycloak.org
+    icon: https://raw.githubusercontent.com/keycloak/keycloak-misc/master/logo/keycloak_logo_600px.svg
+    keywords:
+    - authentication
+    - authorization
+    - keycloak
+    - proxy
+    maintainers:
+    - email: gabibbo97@gmail.com
+      name: gabibbo97
+    name: keycloak-gatekeeper
+    sources:
+    - https://github.com/keycloak/keycloak-containers
+    - https://github.com/keycloak/keycloak-gatekeeper
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/keycloak-gatekeeper-4.0.0/keycloak-gatekeeper-4.0.0.tgz
+    version: 4.0.0
+  kuberos:
+  - apiVersion: v2
+    appVersion: 7bc1e72
+    created: "2022-10-28T19:33:04.799789807Z"
+    deprecated: true
+    description: OIDC authentication helper for Kubernetes
+    digest: e76d823567755afc6b361f281f9ff0ea14383ea0fd7504cf89f085c9c0fde0a0
+    name: kuberos
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/kuberos-2.0.0/kuberos-2.0.0.tgz
+    version: 2.0.0
+  ldap-account-manager:
+  - apiVersion: v2
+    appVersion: "7.2"
+    created: "2022-10-28T19:33:04.938703669Z"
+    description: LDAP Account Manager
+    digest: 6db619c5395f8514bc89bf50ac40a2e4651eaf568681eb3a7f3898d40d0d250e
+    name: ldap-account-manager
+    type: application
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/ldap-account-manager-0.2.1/ldap-account-manager-0.2.1.tgz
+    version: 0.2.1
+  mongodb:
+  - apiVersion: v2
+    appVersion: 4.0.10
+    created: "2022-10-28T19:33:05.09462703Z"
+    deprecated: true
+    description: MongoDB database
+    digest: f13db9c5756ef011034d78598c9356009e2490a596742f43e15dd667bf5a00f0
+    name: mongodb
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/mongodb-0.3.0/mongodb-0.3.0.tgz
+    version: 0.3.0
+  papermc:
+  - apiVersion: v2
+    appVersion: 1.15.2
+    created: "2022-10-28T19:33:05.280414476Z"
+    description: Deploy the PaperMC Minecraft server
+    digest: c83a8fb2dc546d200dcb2b5a2e6417714116afa86b3a01cbac2170d34677102b
+    name: papermc
+    type: application
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/papermc-0.1.11/papermc-0.1.11.tgz
+    version: 0.1.11
+  periodic-daemonset:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2022-10-28T19:33:05.414346801Z"
+    deprecated: true
+    description: Periodically run a job
+    digest: fb0e6cd822cef84720535df1239385b906a3a70145ebe597177009b046eb5a7b
+    name: periodic-daemonset
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/periodic-daemonset-2.0.0/periodic-daemonset-2.0.0.tgz
+    version: 2.0.0
+  pullsecret:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2022-10-28T19:33:05.552735955Z"
+    deprecated: true
+    description: Image pull secrets
+    digest: 36d6d10b8434760d0b3c7b1ca18255283539df86c89a59bcf1689133a8b41911
+    name: pullsecret
+    urls:
+    - https://github.com/cat-home-experts/gabibbo97-helm-charts/releases/download/pullsecret-0.1.2/pullsecret-0.1.2.tgz
+    version: 0.1.2
+generated: "2022-10-28T19:33:05.552748755Z"
