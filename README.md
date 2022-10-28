@@ -9,7 +9,7 @@ The repo is actually a misomer because there are many k8s related utilities that
 ## Quickstart
 
 ```bash
-helm repo add gabibbo97 https://cat-home-experts.github.io/gabibbo97-helm-charts
+helm repo add gabibbo97 https://cat-home-experts.github.io/gabibbo97-helm-charts/
 helm repo update
 
 # To install the <chart-name> chart:
